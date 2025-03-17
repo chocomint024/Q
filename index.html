@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -11,12 +11,14 @@
             text-align: center;
             margin: 20px;
         }
-        #qrcode {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        #qrcode canvas {
+            width: 100% !important;
+            max-width: 400px; /* 必要に応じて調整 */
+            height: auto !important;
         }
+
+        }
+
         #generatedString {
             margin-top: 10px;
             font-size: 18px;
@@ -44,7 +46,7 @@
             flex: 1 1 auto; /* 幅を自動調整 */
             min-width: 120px; /* 最小幅を設定 */
         }
-        
+
         @media (max-width: 600px) {
             .selectGroup div {
                 margin-right: 0; /* マージンをリセット */
@@ -56,12 +58,13 @@
 </head>
 <body>
     <h2>電波人間用QRコード自動生成ツール</h2>
-    <input type="number" id="stringLength" placeholder="文字列の長さを入力 (1-493)" min="1" max="493" value="16" />
+    <input type="number" id="stringLength" placeholder="文字列の長さを入力 (1-493)" min="1" max="493" value="126" />
     <button onclick="generateQRCode()">QRコードを生成</button>
-    <div class="description">※数字が大きすぎると出現する個体は増えますがAndroidとiOSで個体が異なる可能性があります。</div>
+    <div class="description">※126より大きい数だと湧く数は増えますがAndroidとiOSで個体が異なります。</div>
     
     <div id="qrcode"></div>
     <div id="generatedString"></div>
+    <div id="qrCount">QRコード生成回数: 0</div> <!-- 生成回数表示用の要素 -->
 
     <div class="selectGroup">
         <div>
@@ -118,25 +121,30 @@
             <strong>アンテナ</strong>
             <select id="antennaSelect">
                 <option value="">選択してください</option>
+                <option value="アンテナなし">アンテナなし</option>
+                <option value="ふっかつ">ふっかつ</option>
+                <option value="かいふく">かいふく</option>
+                <option value="むてき">むてき</option>
                 <option value="よけにくい">よけにくい</option>
-                <option value="ノクダ">ノクダ</option>
-                <option value="治す">治す</option>
+                <option value="ノックダウン">ノックダウン</option>
+                <option value="なおす">なおす</option>
                 <option value="ぞくせいなおす">ぞくせいなおす</option>
-                <option value="興奮">興奮</option>
+                <option value="こうふん">こうふん</option>
                 <option value="あしもとガード">あしもとガード</option>
-                <option value="遅くなれ">遅くなれ</option>
+                <option value="おそくなれ">おそくなれ</option>
                 <option value="よわくなれ">よわくなれ</option>
                 <option value="やわくなれ">やわくなれ</option>
                 <option value="はやくなれ">はやくなれ</option>
                 <option value="つよくなれ">つよくなれ</option>
                 <option value="かたくなれ">かたくなれ</option>
+                <option value="かわしやすい">かわしやすい</option>
                 <option value="どくになれ">どくになれ</option>
                 <option value="めかくし">めかくし</option>
                 <option value="しびれさせる">しびれさせる</option>
                 <option value="ねむらせる">ねむらせる</option>
+                <option value="げどく">げどく</option>
                 <option value="しびれとる">しびれとる</option>
                 <option value="めざめる">めざめる</option>
-                <option value="無敵">無敵</option> <!-- 無敵を追加 -->
                 <option value="単体火">単体火</option>
                 <option value="単体水">単体水</option>
                 <option value="単体電気">単体電気</option>
@@ -151,6 +159,9 @@
                 <option value="3体土">3体土</option>
                 <option value="3体風">3体風</option>
                 <option value="3体氷">3体氷</option>
+                <option value="3体風">3体闇</option>
+                <option value="3体風">3体光</option>
+                
             </select>
         </div>
         <div>
@@ -172,9 +183,26 @@
 
     <button id="saveButton" style="display: none;" onclick="saveQRCode()">QRコード画像を保存</button>
     <div class="description" id="saveDescription" style="display: none;">※選択肢を押さなくても保存できます。</div>
+    <button id="physiqueTableButton" style="margin-top: 10px;" onclick="showPhysiqueTable()">体格表を表示</button>
+    <div id="physiqueTableContainer" style="display: none; margin-top: 10px;">
+    <img id="physiqueTableImage" src="path/to/体格表.png" alt="体格表" style="max-width: 100%; height: auto;">
+</div>
+
+<script>
+    function showPhysiqueTable() {
+        var tableContainer = document.getElementById("physiqueTableContainer");
+        if (tableContainer.style.display === "none") {
+            tableContainer.style.display = "block";
+        } else {
+            tableContainer.style.display = "none";
+        }
+    }
+</script>
+
 
     <script>
         let qrCodeElement;
+        let qrCodeCount = 0; // QRコード生成回数をカウントする変数
 
         function generateQRCode() {
             // ユーザーが入力した文字列の長さを取得
@@ -205,6 +233,27 @@
             });
             document.getElementById("qrcode").appendChild(qrCodeElement);
 
+            // QRコードに白い余白を追加するためのCanvasを作成
+            const canvas = qrCodeElement.querySelector("canvas");
+            if (canvas) {
+                const ctx = canvas.getContext("2d");
+                const whiteBorderSize = 30; // 白い余白のサイズ
+                const borderedCanvas = document.createElement("canvas");
+                borderedCanvas.width = qrCodeSize + whiteBorderSize * 2; // 余白を考慮した幅
+                borderedCanvas.height = qrCodeSize + whiteBorderSize * 2; // 余白を考慮した高さ
+                const borderedCtx = borderedCanvas.getContext("2d");
+
+                // 白い背景を描画
+                borderedCtx.fillStyle = "white";
+                borderedCtx.fillRect(0, 0, borderedCanvas.width, borderedCanvas.height);
+                // QRコードを中央に描画
+                borderedCtx.drawImage(canvas, whiteBorderSize, whiteBorderSize, qrCodeSize, qrCodeSize);
+
+                // 新しいCanvasをQRコードエリアに追加
+                qrCodeElement.innerHTML = ""; // 以前のQRコードをクリア
+                qrCodeElement.appendChild(borderedCanvas);
+            }
+
             // 生成した文字列を表示
             document.getElementById("generatedString").innerHTML = "生成した文字列: " + randomString;
 
@@ -219,6 +268,10 @@
             document.getElementById("headSelect").selectedIndex = 0;
             document.getElementById("antennaSelect").selectedIndex = 0;
             document.getElementById("featureSelect").selectedIndex = 0;
+
+            // QRコード生成回数を更新
+            qrCodeCount++;
+            document.getElementById("qrCount").innerText = "QRコード生成回数: " + qrCodeCount; // 回数を表示
         }
 
         function saveQRCode() {
