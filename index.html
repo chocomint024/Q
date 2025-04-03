@@ -129,6 +129,16 @@
             document.getElementById("message").innerText = "エラーが発生しました";
         }
     });
+
+    // URLパラメータから情報を取得してフォームに入力
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('avoidance')) {
+        document.getElementById('features').value = urlParams.get('avoidance');
+    }
+    if (urlParams.has('physique')) {
+        document.getElementById('remarks').value = urlParams.get('physique');
+    }
+    // 必要に応じて他のパラメータも取得し、フォームに入力
 </script>
 
 </body>
