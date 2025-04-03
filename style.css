@@ -1,0 +1,327 @@
+body {
+    background-image: url('images/haikei.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    margin: 0;
+    padding: 0;
+}
+
+
+.header-image {
+    max-width: 100%;  /* 親要素の幅を超えないようにする */
+    height: auto;     /* 縦横比を維持 */
+    display: block;   /* 余計な隙間をなくす */
+    margin: 0 auto;   /* 中央揃え */
+}
+
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 0;
+    background-color: transparent; /* 半透明の白背景で可読性を向上 */
+    color: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* 隙間を完全になくす */
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 10px 0;
+}
+
+.btn {
+    display: block;
+    width: 300px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+transition: transform 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+
+.twitter-account {
+    text-align: right; /* 右寄せ */
+    margin-bottom: 10px; /* 下の余白 */
+}
+
+.twitter-account p {
+    display: inline; /* 横並びにする */
+    margin-right: 10px; /* 文字間の余白 */
+    font-size: 14px; /* 文字を小さく */
+}
+
+.twitter-account a {
+    margin-left: 10px; /* フォローボタンの間隔 */
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* 各要素の間隔 */
+    text-align: center;
+    margin-top: 20px;
+}
+
+.credits {
+    font-size: 14px; /* 文字サイズを少し小さめに */
+}
+
+.buttons, .download-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.follow-button {
+    background-color: black;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.download-buttons img {
+    height: 40px; /* サイズを調整 */
+    width: auto;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .buttons, .download-buttons {
+        flex-direction: column;
+    }
+}
+.twitter-timeline-container {
+    display: flex;
+    justify-content: center; /* 水平方向の中央寄せ */
+    align-items: center; /* 垂直方向の中央寄せ */
+    width: 100%; /* 親要素いっぱいに広げる */
+    height: auto; /* 必要に応じて調整 */
+    padding: 20px 0;
+}
+
+.free-site-link {
+    text-align: center; /* 中央揃え */
+    font-size: 18px; /* 文字サイズを調整 */
+    font-weight: bold; /* 太字 */
+    margin-top: 20px; /* 余白を追加 */
+}
+
+.free-site-link a {
+    color: #007bff; /* リンクを青色に */
+    text-decoration: none; /* 下線を消す */
+    font-weight: bold;
+}
+
+.free-site-link a:hover {
+    text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+#daily-event {
+    text-align: center; /* 画像を中央配置 */
+    margin: 0;
+    padding: 0;
+}
+
+#event-image {
+    max-width: 100%; /* 画像の幅を自動調整 */
+    height: auto;
+    display: block;
+}
+
+.vertical-list {
+    width: 100%; /* 親要素の幅を画面いっぱいにする */
+    max-width: 800px; /* パソコンでのサイズを調整 */
+    list-style: none; /* デフォルトのリストマーカーを削除 */
+    padding: 0;
+    margin: 0 auto; /* 中央揃え */
+    display: flex;
+    flex-direction: column; /* 縦並びにする */
+    align-items: center; /* 中央揃え */
+    gap: 0; /* 隙間を完全になくす */
+}
+
+.vertical-list li {
+    display: block;
+    width: 100%;
+    max-width: 800px; /* パソコンでの最大幅を増やす */
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.vertical-list li a {
+    display: block; /* リンクをブロック要素に */
+    margin: 0; /* 余白を削除 */
+}
+
+/* パソコンでさらに大きくする */
+@media (min-width: 1024px) {
+    .vertical-list {
+        max-width: 1600px;
+    }
+
+    .vertical-list li {
+        max-width: 1000px;
+    }
+}
+
+
+.vertical-list li a img {
+    width: auto; /* 画像の元のサイズを保持 */
+    max-width: 100%; /* 親要素より大きくならない */
+    height: auto; /* 縦横比を維持 */
+    display: block; /* 余白をなくす */
+    transition: transform 0.2s ease-in-out; /* スムーズな拡大アニメーション */
+}
+
+.vertical-list li a img:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列レイアウト */
+    gap: 0; /* 隙間を完全になくす */
+    width: 100%; /* 幅いっぱいに広げる */
+    max-width: 900px; /* 幅を広げる（好みに応じて調整） */
+    margin: 0 auto; /* 中央配置 */
+}
+
+.grid-container a {
+    width: 100%; /* 各ボタンを均等に広げる */
+}
+
+.grid-container a img {
+    width: 100%; /* 親要素に対してピッタリ */
+    height: auto; /* 縦横比を維持 */
+    display: block; /* 画像の余白を削除 */
+    transition: transform 0.2s ease-in-out; /* スムーズな拡大アニメーション */
+}
+
+.grid-container a img:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+}
+
+/* 画面サイズが大きい場合は画像も大きくする */
+@media (min-width: 1024px) {
+    .grid-container {
+        max-width: 1200px; /* デスクトップで大きく表示 */
+    }
+}
+
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列レイアウト */
+    gap: 0; /* 隙間を完全になくす */
+    width: 100%; /* 幅いっぱいに広げる */
+    max-width: 900px; /* 幅を広げる（好みに応じて調整） */
+    margin: 0 auto; /* 中央配置 */
+}
+
+.grid-container a {
+    width: 100%; /* 各ボタンを均等に広げる */
+    display: block; /* ブロック要素として扱う */
+    margin: 0; /* 余白を削除 */
+}
+
+.grid-container a img {
+    width: 100%; /* 親要素に対してピッタリ */
+    height: auto; /* 縦横比を維持 */
+    display: block; /* 画像の余白を削除 */
+    margin: 0; /* 余白を削除 */
+    transition: transform 0.2s ease-in-out; /* スムーズな拡大アニメーション */
+}
+
+.grid-container a img:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+}
+
+/* 画面サイズが大きい場合は画像も大きくする */
+@media (min-width: 1024px) {
+    .grid-container {
+        max-width: 1200px; /* デスクトップで大きく表示 */
+    }
+}
+
+.twitter-timeline {
+    width: 320px;  /* タイムラインの幅 */
+    height: 500px; /* タイムラインの高さ */
+    overflow: hidden; /* はみ出た部分を隠す */
+}
+
+/* タイムラインを中央配置 */
+.twitter-timeline {
+    display: flex; /* フレックスボックスで配置 */
+    justify-content: center; /* 中央寄せ */
+    align-items: center; /* 垂直方向の中央揃え */
+    width: 100%; /* 幅を100%に設定 */
+    max-width: 600px; /* 最大幅を設定（必要に応じて調整） */
+    margin: 0 auto; /* 中央配置 */
+}
+
+/* 旧FREEお役立ちサイトの画像を小さく */
+.old-free-site img {
+    width: 150px;  /* サイズを小さく */
+    height: auto;  /* 縦横比を維持 */
+    transition: transform 0.2s ease-in-out; /* スムーズな拡大アニメーション */
+}
+
+@media screen and (min-width: 768px) {
+    .old-free-site img {
+        width: 400px; /* PCでは大きく */
+    }
+}
+
+/* 旧FREEお役立ちサイトを右寄せ */
+.old-free-site {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0; /* 隙間を完全になくす */
+    margin: 0; /* マージンを削除 */
+    padding: 0; /* パディングを削除 */
+}
+
+/* 旧FREEお役立ちサイトのリストアイテムの余白調整 */
+.vertical-list li {
+    margin: 0; /* 余白を削除 */
+    padding: 0; /* パディングを削除 */
+}
+
+.old-free-site img:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+}
