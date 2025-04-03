@@ -61,6 +61,11 @@
 
 <form id="postForm">
     <input type="text" id="name" placeholder="名前" required>
+    <input type="text" id="avoidance" placeholder="回避率" required>
+    <input type="text" id="physique" placeholder="体格" required>
+    <input type="text" id="color" placeholder="色" required>
+    <input type="text" id="head" placeholder="頭" required>
+    <input type="text" id="antenna" placeholder="アンテナ" required>
     <input type="text" id="features" placeholder="特徴" required>
     <textarea id="remarks" rows="4" placeholder="備考欄"></textarea>
     <input type="file" id="imageInput" accept="image/*" required>
@@ -97,6 +102,11 @@
             if (data.success) {
                 const imageUrl = data.data.url;
                 const name = document.getElementById('name').value;
+                const avoidance = document.getElementById('avoidance').value;
+                const physique = document.getElementById('physique').value;
+                const color = document.getElementById('color').value;
+                const head = document.getElementById('head').value;
+                const antenna = document.getElementById('antenna').value;
                 const features = document.getElementById('features').value;
                 const remarks = document.getElementById('remarks').value;
 
@@ -106,6 +116,11 @@
                 postDiv.innerHTML = `
                     <img src="${imageUrl}" width="200">
                     <p><strong>名前:</strong> ${name}</p>
+                    <p><strong>回避率:</strong> ${avoidance}</p>
+                    <p><strong>体格:</strong> ${physique}</p>
+                    <p><strong>色:</strong> ${color}</p>
+                    <p><strong>頭:</strong> ${head}</p>
+                    <p><strong>アンテナ:</strong> ${antenna}</p>
                     <p><strong>特徴:</strong> ${features}</p>
                     <p><strong>備考:</strong> ${remarks}</p>
                 `;
@@ -132,13 +147,12 @@
 
     // URLパラメータから情報を取得してフォームに入力
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('avoidance')) {
-        document.getElementById('features').value = urlParams.get('avoidance');
-    }
-    if (urlParams.has('physique')) {
-        document.getElementById('remarks').value = urlParams.get('physique');
-    }
-    // 必要に応じて他のパラメータも取得し、フォームに入力
+    document.getElementById('avoidance').value = urlParams.get('avoidance') || "";
+    document.getElementById('physique').value = urlParams.get('physique') || "";
+    document.getElementById('color').value = urlParams.get('color') || "";
+    document.getElementById('head').value = urlParams.get('head') || "";
+    document.getElementById('antenna').value = urlParams.get('antenna') || "";
+    document.getElementById('features').value = urlParams.get('feature') || "";
 </script>
 
 </body>
